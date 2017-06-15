@@ -1,0 +1,44 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css')
+    script(src='https://code.jquery.com/jquery-3.2.1.min.js')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+    script(src='https://d3js.org/d3.v3.min.js')
+    script(src='/javascripts/scatterplot.js')
+
+
+  body
+  nav#mainNav.navbar.navbar-default.navbar-fixed-top
+    .container-fluid
+      .navbar-header
+        button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1')
+          span.sr-only Toggle navigation
+          |
+          span.icon-bar
+          |
+          span.icon-bar
+          |
+          span.icon-bar
+        |
+        a.navbar-brand.page-scroll(href='/') Project name
+      #bs-example-navbar-collapse-1.collapse.navbar-collapse
+        ul.nav.navbar-nav.navbar-right
+          li
+            a(href='/blog') Blog
+          |
+          li
+            a.page-scroll(href='#about') About
+          |
+          li
+            a.page-scroll(href='#services') Services
+          |
+          li
+            a.page-scroll(href='#portfolio') Portfolio
+          |
+          li
+            a.page-scroll(href='#contact') Contact
+    block content

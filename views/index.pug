@@ -1,0 +1,35 @@
+extends layout
+
+
+
+block content
+  head
+    script.
+      //var d3 = require('d3');
+      $(document).ready(function(){
+
+        //var svgsrc = !{JSON.stringify(svgsrc)};
+        //console.log(svgsrc);
+        //var html = '<a href="#" id="playButton">Play</a>';
+        console.log(document.getElementById("chartdiv"));
+        //  html += '<div id="radial_chart">svgsrc</div>';
+        //document.getElementById("chartdiv").innerHTML = svgsrc;
+        //canvg();
+        // blablabla
+        var dataset = [];  // Initialize empty array
+        var numDataPoints = 15;  // Number of dummy data points
+        var maxRange = Math.random() * 1000;  // Max range of new values
+        for(var i=0; i<numDataPoints; i++) {
+          var newNumber1 = Math.floor(Math.random() * maxRange);  // New random integer
+          var newNumber2 = Math.floor(Math.random() * maxRange);  // New random integer
+          dataset.push([newNumber1, newNumber2]);  // Add new number to array
+        }
+        renderScatterPlot(dataset);
+        //console.log(svg);
+
+
+      });
+
+  h1= title
+  p Welcome to #{title}
+  div(id='chartdiv',style='height:400px;width:700px;')
