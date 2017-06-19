@@ -1,9 +1,9 @@
 
-function renderScatterPlot(dataset)
+function renderScatterPlot(dataset, element)
 {
   // Setup settings for graphic
-  var canvas_width = 700;
-  var canvas_height = 400;
+  var canvas_width = element.clientWidth;
+  var canvas_height = element.clientWidth;
   var padding = 30;  // for chart edges
 
   // Create scale functions
@@ -30,7 +30,7 @@ function renderScatterPlot(dataset)
     .scale(yScale)
     .orient("left")
     .ticks(5);
-  var svg = d3.select("#chartdiv")
+  var svg = d3.select("#"+element.id)
     .append("svg")
     .attr("width", canvas_width)
     .attr("height", canvas_height);

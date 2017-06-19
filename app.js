@@ -43,4 +43,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+app.title = "Dimensional reduction comparison";
+
 module.exports = app;

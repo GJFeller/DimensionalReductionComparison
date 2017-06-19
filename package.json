@@ -18,6 +18,7 @@
     "d3": "latest",
     "jsdom": "latest",
     "bootstrap": "latest",
-	"nodemon": "latest"
+	  "nodemon": "latest",
+    "pug-bootstrap": "latest"
   }
 }
