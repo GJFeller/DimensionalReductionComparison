@@ -19,6 +19,9 @@
     "jsdom": "latest",
     "bootstrap": "latest",
 	  "nodemon": "latest",
-    "pug-bootstrap": "latest"
+    "pug-bootstrap": "latest",
+    "fs": "latest",
+    "request": "latest",
+    "http": "latest"
   }
 }

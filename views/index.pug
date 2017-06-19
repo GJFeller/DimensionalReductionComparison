@@ -3,9 +3,11 @@ extends layout
 block scripts
   script(src='https://d3js.org/d3.v3.min.js')
   script(src='/javascripts/scatterplot.js')
+  script(src='/javascripts/getJSON.js')
   script.
     $(document).ready(function(){
       console.log(document.getElementById("chartdivPCA"));
+      getSemesterFile('2013-1');
       var datasetList = [];
       
       var numDataPoints = 15;  // Number of dummy data points
@@ -28,19 +30,16 @@ block scripts
 block content
   .row
     .container-fluid
-      .col-sm-1.col-md-1.sidebar
-        ul.nav.nav-sidebar
-          li
-            a(href='#') Hello
-          li 
-            a(href='#') World
-      .col-sm-11.col-md-11.main
+      .col-sm-12.col-md-12.main
         h1.page-header Dimensional reduction test
         .row.placeholders
           .col-sm-4
+            h2.page-header PCA
             div(id='chartdivPCA')
           .col-sm-4
+            h2.page-header MDS
             div(id='chartdivMDS')
           .col-sm-4
+            h2.page-header Sammon Mapping
             div(id='chartdivSammon')
   

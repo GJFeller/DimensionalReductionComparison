@@ -2,8 +2,8 @@
 function renderScatterPlot(dataset, element)
 {
   // Setup settings for graphic
-  var canvas_width = element.clientWidth;
-  var canvas_height = element.clientWidth;
+  var canvas_width = element.offsetWidth;
+  var canvas_height = element.offsetWidth*0.8;
   var padding = 30;  // for chart edges
 
   // Create scale functions
