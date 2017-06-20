@@ -29,6 +29,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/users', users);
 
+router.all('/*', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With, Content-Type");
+    res.header("Access-Control-Allow-Methods", "GET, POST","PUT");
+    next();
+});
+
 router.get('/deputies', function(req, res){
   var jsonData;
   fs.readFile(path.join(__dirname, 'public/data/deputiesID.json'), function (err, data) {
@@ -63,12 +70,7 @@ app.use(function(req, res, next) {
   next(err);
 });
 
-router.all('/*', function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "X-Requested-With, Content-Type");
-    res.header("Access-Control-Allow-Methods", "GET, POST","PUT");
-    next();
-});
+
 /// error handlers
 
 // development error handler
