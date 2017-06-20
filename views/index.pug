@@ -5,31 +5,50 @@ block scripts
   script(src='/javascripts/scatterplot.js')
   script(src='/javascripts/getJSON.js')
   script(src='/javascripts/ext/numeric-1.2.6.js')
+  script(src='/javascripts/ext/lodash.js')
   script(src='/javascripts/dimReductionMethods.js')
   script.
     $(document).ready(function(){
-      console.log(document.getElementById("chartdivPCA"));
+      //console.log(document.getElementById("chartdivPCA"));
       /*rollCallData.deputiesList(function (json){
         console.log(json);
       });*/
       //console.log(rollCallData.deputiesList());
-      var deputiesList = [];
+      var rollCallMatrix;
       rollCallData.semesterFile('2013-1', function (json){
         //console.log(json);
+        // Getting the deputies which voted in the semester
+        var deputiesVotedList = [];
         json.forEach(function (rollCall){
           rollCall.rollVotes.forEach(function (vote){
-            if(deputiesList.indexOf(vote.deputyID) < 0) {
-              deputiesList.push(parseInt(vote.deputyID))
+            if(_.findIndex(deputiesVotedList, function(o){return o.deputyId == parseInt(vote.deputyID)}) < 0) {
+              deputiesVotedList.push({'deputyId': parseInt(vote.deputyID), 'party': vote.party});
             }
             //console.log(vote);
           });
           //console.log(item);
         });
-        deputiesList.sort(function(a, b) {
-          return a - b;
+        deputiesVotedList.sort(function(a, b) {
+          return a.deputyID - b.deputyID;
         });
-        console.log(deputiesList);
+        //console.log(deputiesVotedList);
+        //console.log(deputiesVotedList.length);
+        //console.log(json.length);
+        rollCallMatrix = new Array(deputiesVotedList.length);
+        for(var i = 0; i < rollCallMatrix.length; i++) {
+          rollCallMatrix[i] = new Array(json.length).fill(0); 
+        }
+        
+        //console.log(rollCallMatrix);
+        // Setting the Matrix
+        json.forEach(function (rollCall, idx){
+          rollCall.rollVotes.forEach(function (vote){
+            rollCallMatrix[_.findIndex(deputiesVotedList, function(o){return o.deputyId == parseInt(vote.deputyID)})][idx] = parseInt(vote.vote);
+          });
+        });
+        console.log(rollCallMatrix);
 
+        dimReducMethods.PCA(rollCallMatrix);
       });
       //console.log(rollCallData.semesterFile('2013-1'));
       var datasetList = [];
