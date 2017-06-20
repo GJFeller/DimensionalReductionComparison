@@ -9,7 +9,29 @@ block scripts
   script.
     $(document).ready(function(){
       console.log(document.getElementById("chartdivPCA"));
-      getSemesterFile('2013-1');
+      /*rollCallData.deputiesList(function (json){
+        console.log(json);
+      });*/
+      //console.log(rollCallData.deputiesList());
+      var deputiesList = [];
+      rollCallData.semesterFile('2013-1', function (json){
+        //console.log(json);
+        json.forEach(function (rollCall){
+          rollCall.rollVotes.forEach(function (vote){
+            if(deputiesList.indexOf(vote.deputyID) < 0) {
+              deputiesList.push(parseInt(vote.deputyID))
+            }
+            //console.log(vote);
+          });
+          //console.log(item);
+        });
+        deputiesList.sort(function(a, b) {
+          return a - b;
+        });
+        console.log(deputiesList);
+
+      });
+      //console.log(rollCallData.semesterFile('2013-1'));
       var datasetList = [];
       
       var numDataPoints = 15;  // Number of dummy data points

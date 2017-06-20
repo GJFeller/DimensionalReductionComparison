@@ -29,6 +29,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/users', users);
 
+router.get('/deputies', function(req, res){
+  var jsonData;
+  fs.readFile(path.join(__dirname, 'public/data/deputiesID.json'), function (err, data) {
+    if(err) {
+      res.send([]);
+      throw err;
+    }
+    jsonData = JSON.parse(data);
+    res.send(jsonData);
+  });
+});
+
 router.get('/voting/:semester', function (req, res) {
   var semester = req.params.semester;
   //var semester = '2013-1';
