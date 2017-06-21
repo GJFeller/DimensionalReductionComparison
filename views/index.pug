@@ -2,6 +2,7 @@ extends layout
 
 block scripts
   script(src='https://d3js.org/d3.v3.min.js')
+  script(src='http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js')
   script(src='/javascripts/scatterplot.js')
   script(src='/javascripts/getJSON.js')
   script(src='/javascripts/ext/numeric-1.2.6.js')
@@ -48,7 +49,14 @@ block scripts
         });
         console.log(rollCallMatrix);
 
-        dimReducMethods.PCA(rollCallMatrix);
+        var deputiesPCACoordinates = dimReducMethods.PCA(rollCallMatrix);
+        var PCAscatterData = [];
+        for(var i = 0; i < deputiesPCACoordinates.length; i++) {
+          PCAscatterData.push({'data': deputiesPCACoordinates[i], 
+                               'party': deputiesVotedList[i].party,
+                               'name': deputiesVotedList[i].deputyId});
+        }
+        renderScatterPlot(PCAscatterData, document.getElementById('chartdivPCA'));
       });
       //console.log(rollCallData.semesterFile('2013-1'));
       var datasetList = [];
@@ -58,14 +66,15 @@ block scripts
       for(var n=0; n<3; n++)
       {
         var dataset = [];  // Initialize empty array
+
         for(var i=0; i<numDataPoints; i++) {
           var newNumber1 = Math.floor(Math.random() * maxRange);  // New random integer
           var newNumber2 = Math.floor(Math.random() * maxRange);  // New random integer
-          dataset.push([newNumber1, newNumber2]);  // Add new number to array
+          dataset.push({'data': [newNumber1, newNumber2], 'party': 'NI', 'name': 'random'});  // Add new number to array
         }
         datasetList.push(dataset);
       }
-      renderScatterPlot(datasetList[0], document.getElementById('chartdivPCA'));
+      
       renderScatterPlot(datasetList[1], document.getElementById('chartdivMDS'));
       renderScatterPlot(datasetList[2], document.getElementById('chartdivSammon'));
     });
@@ -74,15 +83,15 @@ block content
   .row
     .container-fluid
       .col-sm-12.col-md-12.main
-        h1.page-header Dimensional reduction test
+        h1.page-header Dimensional reduction comparison
         .row.placeholders
           .col-sm-4
-            h2.page-header PCA
+            h2 PCA
             div(id='chartdivPCA')
           .col-sm-4
-            h2.page-header MDS
+            h2 MDS
             div(id='chartdivMDS')
           .col-sm-4
-            h2.page-header Sammon Mapping
+            h2 Sammon Mapping
             div(id='chartdivSammon')
   

@@ -14,9 +14,42 @@ dimReducMethods.PCA = function PCA(dataset) {
     var eigen = numeric.eig(covMatrix);
 
     console.log(eigen);
+    var eigenvalues = eigen.lambda.x;
+    var eigenvectors = numeric.transpose(eigen.E.x);
+    console.log(eigenvectors);
+    var vectorBase = numeric.transpose(getLargerEigenvectors(eigenvalues, eigenvectors, 2));
+    console.log(vectorBase);
 
+    var dataCoordinates = numeric.dot(modifiedDataset, vectorBase);
+    console.log(dataCoordinates);
+    return dataCoordinates;
     
-    
+}
+
+function getLargerEigenvectors(eigenvalues, eigenvectorMatrix, d) {
+
+    var largestEigenvalues = new Array(d);
+    for(var i = 0; i < d; i++) {
+        largestEigenvalues[i] = {'lambda': eigenvalues[i], 'idx': i};
+    }
+    largestEigenvalues.sort(function(a, b) {
+          return b.lambda - a.lambda;
+    });
+    for(var i = d; i < eigenvalues.length; i++) {
+        largestEigenvalues.push({'lambda': eigenvalues[i], 'idx': i});
+        largestEigenvalues.sort(function(a, b) {
+          return b.lambda - a.lambda;
+        });
+        largestEigenvalues.pop();
+    }
+    console.log(largestEigenvalues);
+    var selectedEigenvectors = [];
+    for(var i = 0; i < d; i++) {
+        console.log(numeric.norm2(eigenvectorMatrix[largestEigenvalues[i].idx]));
+        selectedEigenvectors.push(eigenvectorMatrix[largestEigenvalues[i].idx]);
+    }
+    return selectedEigenvectors;
+
 }
 
 function calculateCovariance(m, i, j, covDim) {

@@ -13,7 +13,7 @@ rollCallData.deputiesList = function getDeputiesList(callback) {
             callback(JSON.parse(xhttp.responseText))
         }
     };
-    xhttp.open("GET", 'http://localhost:3000/deputies', true);
+    xhttp.open("GET", 'https://localhost:3000/deputies', true);
     xhttp.send();
 }
 
