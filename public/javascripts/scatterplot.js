@@ -40,9 +40,6 @@ function renderScatterPlot(dataset, element)
     .attr("width", canvas_width)
     .attr("height", canvas_height);
 
-  var tooltip = d3.select("body").append("div")
-                  .attr("class", "tooltip")
-                  .style("opacity", 0);
 
   var tip = d3.tip()
     .attr('class', 'd3-tip')

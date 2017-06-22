@@ -11,13 +11,10 @@ dimReducMethods.PCA = function PCA(dataset) {
     console.log(modifiedDataset);
 
     var covMatrix = calculateCovarianceMatrix(modifiedDataset);
-    var eigen = numeric.eig(covMatrix);
 
-    console.log(eigen);
-    var eigenvalues = eigen.lambda.x;
-    var eigenvectors = numeric.transpose(eigen.E.x);
-    console.log(eigenvectors);
-    var vectorBase = numeric.transpose(getLargerEigenvectors(eigenvalues, eigenvectors, 2));
+
+    
+    var vectorBase = numeric.transpose(getLargerEigenvectors(covMatrix, 2));
     console.log(vectorBase);
 
     var dataCoordinates = numeric.dot(modifiedDataset, vectorBase);
@@ -26,7 +23,26 @@ dimReducMethods.PCA = function PCA(dataset) {
     
 }
 
-function getLargerEigenvectors(eigenvalues, eigenvectorMatrix, d) {
+dimReducMethods.MDS = function MDS(dataset) {
+
+
+
+}
+
+
+
+function calculateDistanceMatrix(matrix) {
+    
+    //math.distance(v1, v2);
+}
+
+function getLargerEigenvectors(matrix, d) {
+
+    var eigen = numeric.eig(matrix);
+    console.log(eigen);
+    var eigenvalues = eigen.lambda.x;
+    var eigenvectors = numeric.transpose(eigen.E.x);
+    console.log(eigenvectors);
 
     var largestEigenvalues = new Array(d);
     for(var i = 0; i < d; i++) {
@@ -45,8 +61,8 @@ function getLargerEigenvectors(eigenvalues, eigenvectorMatrix, d) {
     console.log(largestEigenvalues);
     var selectedEigenvectors = [];
     for(var i = 0; i < d; i++) {
-        console.log(numeric.norm2(eigenvectorMatrix[largestEigenvalues[i].idx]));
-        selectedEigenvectors.push(eigenvectorMatrix[largestEigenvalues[i].idx]);
+        console.log(numeric.norm2(eigenvectors[largestEigenvalues[i].idx]));
+        selectedEigenvectors.push(eigenvectors[largestEigenvalues[i].idx]);
     }
     return selectedEigenvectors;
 
