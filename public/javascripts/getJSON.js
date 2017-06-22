@@ -13,7 +13,7 @@ rollCallData.deputiesList = function getDeputiesList(callback) {
             callback(JSON.parse(xhttp.responseText))
         }
     };
-    xhttp.open("GET", 'https://localhost:3000/deputies', true);
+    xhttp.open("GET", 'http://dimreductiondeputies.herokuapp.com/deputies', true);
     xhttp.send();
 }
 
@@ -27,7 +27,8 @@ rollCallData.semesterFile = function getSemesterFile(semester, callback) {
             callback(JSON.parse(xhttp.responseText))
         }
     };
-    xhttp.open("GET", 'http://localhost:3000/voting/'+semester, true);
+    xhttp.open("GET", 'http://dimreductiondeputies.herokuapp.com/voting/'+semester, true);
+    //xhttp.open("GET", 'http://localhost:3000/voting/'+semester, true);
     xhttp.send();
     /*request("2013-1", function(err, response, body){
 
