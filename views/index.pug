@@ -58,6 +58,16 @@ block scripts
                                'name': deputiesVotedList[i].deputyId});
         }
         renderScatterPlot(PCAscatterData, document.getElementById('chartdivPCA'));
+
+        dimReducMethods.MDS(rollCallMatrix);
+        /*var deputiesMDSCoordinates = dimReducMethods.MDS(rollCallMatrix);
+        var MDSscatterData = [];
+        for(var i = 0; i < deputiesMDSCoordinates.length; i++) {
+          MDSscatterData.push({'data': deputiesMDSCoordinates[i], 
+                               'party': deputiesVotedList[i].party,
+                               'name': deputiesVotedList[i].deputyId});
+        }*/
+
       });
       //console.log(rollCallData.semesterFile('2013-1'));
       var datasetList = [];
