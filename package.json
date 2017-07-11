@@ -22,6 +22,7 @@
     "pug-bootstrap": "latest",
     "fs": "latest",
     "request": "latest",
-    "http": "latest"
+    "http": "latest",
+    "glob": "^7.1.2"
   }
 }

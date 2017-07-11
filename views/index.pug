@@ -11,72 +11,17 @@ block scripts
   script(src='/javascripts/ext/math.js')
   script.
     $(document).ready(function(){
-      //console.log(document.getElementById("chartdivPCA"));
-      /*rollCallData.deputiesList(function (json){
-        console.log(json);
-      });*/
-      //console.log(rollCallData.deputiesList());
-      /*var rollCallMatrix;
-      rollCallData.semesterFile('2013-1', function (json){
-        //console.log(json);
-        // Getting the deputies which voted in the semester
-        var deputiesVotedList = [];
-        json.forEach(function (rollCall){
-          rollCall.rollVotes.forEach(function (vote){
-            if(_.findIndex(deputiesVotedList, function(o){return o.deputyId == parseInt(vote.deputyID)}) < 0) {
-              deputiesVotedList.push({'deputyId': parseInt(vote.deputyID), 'party': vote.party});
-            }
-            //console.log(vote);
-          });
-          //console.log(item);
+      rollCallData.semesterList(function (listjson){
+        console.log(listjson);
+        var pOptions = document.getElementById('propertyType');
+        listjson.forEach(function (semester, idx){
+          var option = document.createElement('option');
+          option.text = semester;
+          option.value = idx+1;
+          pOptions.add(option, idx+1);
         });
-        deputiesVotedList.sort(function(a, b) {
-          return a.deputyID - b.deputyID;
-        });
-        //console.log(deputiesVotedList);
-        //console.log(deputiesVotedList.length);
-        //console.log(json.length);
-        rollCallMatrix = new Array(deputiesVotedList.length);
-        for(var i = 0; i < rollCallMatrix.length; i++) {
-          rollCallMatrix[i] = new Array(json.length).fill(0); 
-        }
-        
-        //console.log(rollCallMatrix);
-        // Setting the Matrix
-        json.forEach(function (rollCall, idx){
-          rollCall.rollVotes.forEach(function (vote){
-            rollCallMatrix[_.findIndex(deputiesVotedList, function(o){return o.deputyId == parseInt(vote.deputyID)})][idx] = parseInt(vote.vote);
-          });
-        });
-        console.log(rollCallMatrix);
-
-        var deputiesPCACoordinates = dimReducMethods.PCA(rollCallMatrix);
-        var PCAscatterData = [];
-        for(var i = 0; i < deputiesPCACoordinates.length; i++) {
-          PCAscatterData.push({'data': deputiesPCACoordinates[i], 
-                               'party': deputiesVotedList[i].party,
-                               'name': deputiesVotedList[i].deputyId});
-        }
-        renderScatterPlot(PCAscatterData, document.getElementById('chartdivPCA'));
-
-        dimReducMethods.MDS(rollCallMatrix);
-        //var deputiesMDSCoordinates = dimReducMethods.MDS(rollCallMatrix);
-        //var MDSscatterData = [];
-        //for(var i = 0; i < deputiesMDSCoordinates.length; i++) {
-        //  MDSscatterData.push({'data': deputiesMDSCoordinates[i], 
-        //                       'party': deputiesVotedList[i].party,
-        //                       'name': deputiesVotedList[i].deputyId});
-        //}
-
-      });*/
-      
-      rollCallData.PCAData('2013-1', function (json){
-        renderScatterPlot(json, document.getElementById('chartdivPCA'));
       });
-
-      rollCallData.MDSData('2013-1', function (json){
-        renderScatterPlot(json, document.getElementById('chartdivMDS'));
-      })
+      
       //console.log(rollCallData.semesterFile('2013-1'));
       var datasetList = [];
       
@@ -97,12 +42,27 @@ block scripts
       
       renderScatterPlot(datasetList[2], document.getElementById('chartdivSammon'));
     });
+    document.getElementsByTagName('select')[0].onchange = function() {
+      var index = this.selectedIndex;
+      var inputText = this.children[index].innerHTML.trim();
+      if(inputText != "-- Select Semester --"){
+        rollCallData.PCAData(inputText, function (json){
+          renderScatterPlot(json, document.getElementById('chartdivPCA'));
+        });
+
+        rollCallData.MDSData(inputText, function (json){
+          renderScatterPlot(json, document.getElementById('chartdivMDS'));
+        });
+      }
+    }
 
 block content
   .row
     .container-fluid
       .col-sm-12.col-md-12.main
         h1.page-header Dimensional reduction comparison
+        select#propertyType.select.form-control.input-lg(form='addProperty', name='propertyType')
+          option(value='0') -- Select Semester --
         .row.placeholders
           .col-sm-4
             h2 PCA

@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var fs = require('fs');
+var glob = require('glob')
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -34,6 +35,22 @@ router.all('/*', function(req, res, next) {
     res.header("Access-Control-Allow-Headers", "X-Requested-With, Content-Type");
     res.header("Access-Control-Allow-Methods", "GET, POST","PUT");
     next();
+});
+
+router.get('/semesterList', function(req, res){
+  var semesterList = [];
+  //console.log("HUEHUEHUEHUEHUEHUE");
+  glob("public/data/semesters/PCA/*.json", function(er, files) {
+    files.forEach(function(file) {
+      var filename = path.parse(file).name
+      //console.log(filename);
+      semesterList.push(filename);
+    });
+    console.log(semesterList);
+    res.send(semesterList);
+  });
+  
+  
 });
 
 router.get('/deputies', function(req, res){

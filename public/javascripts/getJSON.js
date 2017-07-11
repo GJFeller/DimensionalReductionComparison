@@ -79,3 +79,18 @@ rollCallData.SammonData = function getSammonData(semester, callback) {
     //xhttp.open("GET", 'http://localhost:3000/Sammon/'+semester, true);
     xhttp.send();
 }
+
+rollCallData.semesterList = function getSemesterList(callback) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            //console.log("CHUPA MINHA PIÇA");
+            //console.log(JSON.parse(xhttp.responseText));
+            //return JSON.parse(xhttp.responseText);
+            callback(JSON.parse(xhttp.responseText))
+        }
+    };
+    //xhttp.open("GET", 'http://dimreductiondeputies.herokuapp.com/semesterList', true);
+    xhttp.open("GET", 'http://localhost:3000/semesterList', true);
+    xhttp.send();
+}
