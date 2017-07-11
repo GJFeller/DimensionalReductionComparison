@@ -90,7 +90,7 @@ rollCallData.semesterList = function getSemesterList(callback) {
             callback(JSON.parse(xhttp.responseText))
         }
     };
-    //xhttp.open("GET", 'http://dimreductiondeputies.herokuapp.com/semesterList', true);
-    xhttp.open("GET", 'http://localhost:3000/semesterList', true);
+    xhttp.open("GET", 'http://dimreductiondeputies.herokuapp.com/semesterList', true);
+    //xhttp.open("GET", 'http://localhost:3000/semesterList', true);
     xhttp.send();
 }
