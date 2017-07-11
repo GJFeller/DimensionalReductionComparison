@@ -63,6 +63,52 @@ router.get('/voting/:semester', function (req, res) {
   });
 });
 
+router.get('/PCA/:semester', function (req, res) {
+  var semester = req.params.semester;
+  //var semester = '2013-1';
+  console.log(semester);
+  var jsonData;
+  fs.readFile(path.join(__dirname, 'public/data/semesters/PCA/'+semester+'.json'), function (err, data) {
+    if(err) {
+      res.send([]);
+      throw err;
+    }
+    jsonData = JSON.parse(data);
+    res.send(jsonData);
+  });
+});
+
+router.get('/MDS/:semester', function (req, res) {
+  var semester = req.params.semester;
+  //var semester = '2013-1';
+  console.log(semester);
+  var jsonData;
+  fs.readFile(path.join(__dirname, 'public/data/semesters/MDS/'+semester+'.json'), function (err, data) {
+    if(err) {
+      res.send([]);
+      throw err;
+    }
+    jsonData = JSON.parse(data);
+    res.send(jsonData);
+  });
+});
+
+router.get('/Sammon/:semester', function (req, res) {
+  var semester = req.params.semester;
+  //var semester = '2013-1';
+  console.log(semester);
+  var jsonData;
+  fs.readFile(path.join(__dirname, 'public/data/semesters/Sammon/'+semester+'.json'), function (err, data) {
+    if(err) {
+      res.send([]);
+      throw err;
+    }
+    jsonData = JSON.parse(data);
+    res.send(jsonData);
+  });
+});
+
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
