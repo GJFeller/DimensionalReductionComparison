@@ -22,7 +22,7 @@ block scripts
       });
       
       //console.log(rollCallData.semesterFile('2013-1'));
-      var datasetList = [];
+      /*var datasetList = [];
       
       var numDataPoints = 15;  // Number of dummy data points
       var maxRange = Math.random() * 1000;  // Max range of new values
@@ -39,7 +39,7 @@ block scripts
       }
       
       
-      renderScatterPlot(datasetList[2], document.getElementById('chartdivSammon'));
+      renderScatterPlot(datasetList[2], document.getElementById('chartdivSammon'));*/
     });
     document.getElementsByTagName('select')[0].onchange = function() {
       var index = this.selectedIndex;
@@ -50,6 +50,9 @@ block scripts
         });
         rollCallData.MDSData(inputText, function (json){
           renderScatterPlot(json, document.getElementById('chartdivMDS'));
+        });
+        rollCallData.SammonData(inputText, function (json){
+          renderScatterPlot(json, document.getElementById('chartdivSammon'));
         });
       }
     }

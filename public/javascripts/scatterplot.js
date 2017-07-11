@@ -23,6 +23,10 @@ function renderScatterPlot(dataset, element)
                 })])
               .range([canvas_height - padding, padding]);  // remember y starts on top going down so we flip
 
+  //console.log(xScale.domain()[0]);
+  //console.log(xScale.domain()[1]);
+  //console.log(yScale.domain()[0]);
+  //console.log(yScale.domain()[1]);
   var color = d3.scale.category20();
   // Define X axis
   var xAxis = d3.svg.axis()
