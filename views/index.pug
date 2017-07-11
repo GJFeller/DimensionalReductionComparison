@@ -16,7 +16,7 @@ block scripts
         console.log(json);
       });*/
       //console.log(rollCallData.deputiesList());
-      var rollCallMatrix;
+      /*var rollCallMatrix;
       rollCallData.semesterFile('2013-1', function (json){
         //console.log(json);
         // Getting the deputies which voted in the semester
@@ -60,15 +60,23 @@ block scripts
         renderScatterPlot(PCAscatterData, document.getElementById('chartdivPCA'));
 
         dimReducMethods.MDS(rollCallMatrix);
-        /*var deputiesMDSCoordinates = dimReducMethods.MDS(rollCallMatrix);
-        var MDSscatterData = [];
-        for(var i = 0; i < deputiesMDSCoordinates.length; i++) {
-          MDSscatterData.push({'data': deputiesMDSCoordinates[i], 
-                               'party': deputiesVotedList[i].party,
-                               'name': deputiesVotedList[i].deputyId});
-        }*/
+        //var deputiesMDSCoordinates = dimReducMethods.MDS(rollCallMatrix);
+        //var MDSscatterData = [];
+        //for(var i = 0; i < deputiesMDSCoordinates.length; i++) {
+        //  MDSscatterData.push({'data': deputiesMDSCoordinates[i], 
+        //                       'party': deputiesVotedList[i].party,
+        //                       'name': deputiesVotedList[i].deputyId});
+        //}
 
+      });*/
+      
+      rollCallData.PCAData('2013-1', function (json){
+        renderScatterPlot(json, document.getElementById('chartdivPCA'));
       });
+
+      rollCallData.MDSData('2013-1', function (json){
+        renderScatterPlot(json, document.getElementById('chartdivMDS'));
+      })
       //console.log(rollCallData.semesterFile('2013-1'));
       var datasetList = [];
       
@@ -86,7 +94,7 @@ block scripts
         datasetList.push(dataset);
       }
       
-      renderScatterPlot(datasetList[1], document.getElementById('chartdivMDS'));
+      
       renderScatterPlot(datasetList[2], document.getElementById('chartdivSammon'));
     });
 
